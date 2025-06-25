@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react002dep
+spec:
+  selector:
+    matchLabels:
+      app: react002kube
+  template:
+    metadata:
+      labels:
+        app: react002kube
+    spec:
+      containers:
+      - name: react-container
+        image: coffit23/k8s_react_ing:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000 
