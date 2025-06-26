@@ -20,27 +20,27 @@ export default function Home() {
   };
 
   return (
-    <div className='plus'>
-      <h1>덧셈 기능 만들기 (React)</h1>
-      <label>num1: </label>
-      <input
-        type='number'
-        value={num1}
-        onChange={(e) => setNum1(Number(e.target.value))}
-      />
-      &nbsp;
-      <label>num2: </label>
-      <input
-        type='number'
-        value={num2}
-        onChange={(e) => setNum2(Number(e.target.value))}
-      />
-      &nbsp;
-      <button onClick={sendPlus}>더하기</button>
-      <hr />
-      <p>
-        {num1} + {num2} = {result}
-      </p>
-    </div>
+      <div className='plus'>
+          <h1>덧셈 기능 만들기 (React)</h1>
+          <label>num1: </label>
+          <input
+              type='number'
+              value={num1}
+              onChange={(e) => setNum1(Number(e.target.value))}
+          />
+          &nbsp;
+          <label>num2: </label>
+          <input
+              type='number'
+              value={num2}
+              onChange={(e) => setNum2(Number(e.target.value))}
+          />
+          &nbsp;
+          <button onClick={sendPlus}>더하기</button>
+          <hr/>
+          <p>
+              {num1} + {num2} = {result}
+          </p>
+      </div>
   );
 }
