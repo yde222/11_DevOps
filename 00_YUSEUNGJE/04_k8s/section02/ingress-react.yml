@@ -1,0 +1,34 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-react
+  annotations:
+    # 기본적으로 NGINX Ingress 컨트롤러는 모든 HTTP 트래픽을 HTTPS로 리다이렉트한다.
+    # 이 설정을 "false"로 지정하면 HTTP 요청을 HTTPS로 자동 리다이렉트 하지 않는다.
+    # 개발 환경이나 SSL/TLS가 필요 없는 상황에서 유용하다.
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /_next/(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: react002ser
+                port:
+                  number: 8000
+
+          - path: /(.*)
+            # rewriter와 관련된 사이트 주소: https://kubernetes.github.io/ingress-nginx/examples/rewrite/
+            # ImplementationSpecific은 Ingress 컨트롤러의 구현에 따라 경로 매칭 방식이 결정된다.
+            # NGINX Ingress Controller의 경우, 정규 표현식을 포함한 더 유연한 라우팅 규칙을 적용할 수 있다.
+            # 이는 Prefix나 Exact보다 더 복잡한 경로 매칭을 가능하게 한다.
+            # 예: /, /about, /users 등
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: react002ser
+                port:
+                  number: 8000

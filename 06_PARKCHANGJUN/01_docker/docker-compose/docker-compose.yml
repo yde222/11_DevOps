@@ -1,0 +1,29 @@
+services:
+  backend:
+    build: ./chap01-01-boot-project
+    container_name: backend
+    ports:
+      - "8080:8080"
+#    networks:
+#      - app-public
+#      - app-private
+  frontend:
+    build: ./chap01-02-react-project
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - app-public
+  tester:
+    image: alpine
+    container_name: net-tester
+    command: sleep 3600
+#    networks:
+#      - app-public
+
+#networks:
+#  app-public:
+#    driver: bridge
+#  app-private:
+#    driver: bridge
+#    internal: true
