@@ -1,0 +1,60 @@
+# deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysqldb
+spec:
+  selector:
+    matchLabels:
+      app: mysqldb
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysqldb
+    spec:
+      containers:
+        - name: mysqldb
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root
+            - name: MYSQL_DATABASE
+              value: orderdb
+            - name: MYSQL_USER
+              value: orderuser
+            - name: MYSQL_PASSWORD
+              value: orderpass
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: db-storage
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: mysqldb-pvc
+---
+# service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysqldb
+spec:
+  selector:
+    app: mysqldb
+  ports:
+    - port: 3306
+      targetPort: 3306
+---
+# pvc
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysqldb-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
