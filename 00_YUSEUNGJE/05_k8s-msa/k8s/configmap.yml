@@ -1,0 +1,10 @@
+# configmap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: service-config
+data:
+  SPRING_DATASOURCE_URL: "jdbc:mysql://mysqldb:3306/orderdb"
+
+  RABBITMQ_HOST: "rabbitmq"
+  RABBITMQ_PORT: "5672"
